@@ -1,6 +1,11 @@
 require 'sinatra/base'
 require_relative 'models/link'
 
+ENV['RACK_ENV'] ||= 'development'
+
+# require 'bundler'
+# Bundler.require :default, ENV['RACK_ENV'].to_sym
+
 class Bookmark < Sinatra::Base
 
   get '/' do
