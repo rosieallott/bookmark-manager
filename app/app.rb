@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require_relative 'models/link'
 
 class Bookmark < Sinatra::Base
 
@@ -7,6 +8,7 @@ class Bookmark < Sinatra::Base
   end
 
   get '/home' do
+    @links = Link.all
     erb(:home)
   end
 

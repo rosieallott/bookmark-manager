@@ -1,5 +1,9 @@
 <h1> Welcome to your bookmarks!</h1>
 
-<ul>
-  <li><a href="http://www.google.com">Google</a></li>
+<ul id='links'>
+  <% @links.each do |link| %>
+  <li>
+    <a href="<%= link.address %>"><%= link.title %></a>
+  </li>
+  <% end %>
 </ul>
