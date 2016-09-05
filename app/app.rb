@@ -4,12 +4,21 @@ require_relative 'models/link'
 class Bookmark < Sinatra::Base
 
   get '/' do
-    redirect '/home'
+    redirect '/links'
   end
 
-  get '/home' do
+  get '/links' do
     @links = Link.all
-    erb(:home)
+    erb(:links)
+  end
+
+  get '/links/new' do
+    erb(:links_new)
+  end
+
+  post '/links' do
+    Link.create(:address => params[:address], :title => params[:title])
+    redirect '/links'
   end
 
   # start the server if ruby file executed directly

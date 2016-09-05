@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'Feature test - Homepage' do
   scenario 'Loads a list of links' do
-    visit '/home'
+    visit '/links'
     expect(page.status_code).to eq 200
     expect(page).to have_text("Welcome to your bookmarks!")
     within 'ul#links' do

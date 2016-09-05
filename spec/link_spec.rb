@@ -1,5 +1,8 @@
 describe Link do
 
-  subject (:test_link) {described_class.new}
+  subject (:link_class) {described_class}
+
+  describe 'adding a new link' do 
+  end
 
 end
