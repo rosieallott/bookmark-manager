@@ -4,6 +4,26 @@
   <% @links.each do |link| %>
     <li>
       <a href="<%= link.url %>"> <%= link.title %> </a>
+      <%= link.tag %>
     </li>
   <% end %>
 </ul>
+
+<!-- <table style="width:100%">
+  <tr>
+    <th>Link</th>
+    <th>Tag</th>
+  </tr>
+<ul id='links'>
+  <% @links.each do |link| %>
+  <tr>
+    <td>
+    <li>
+      <a href="<%= link.url %>"> <%= link.title %> </a>
+    </li>
+  </td>
+  <td><%= link.tag %></td>
+  </tr>
+  <% end %>
+</ul>
+</table> -->
