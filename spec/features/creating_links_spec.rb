@@ -14,9 +14,9 @@ feature 'adding links' do
     add_link
     fill_in 'tag', with: 'life invader'
     click_button 'Add link'
-    expect(current_path).to eq '/links'
+    link = Link.first
     within 'ul#links' do
-      expect(page).to have_content('life invader')
+      expect(link.tags.map(&:name)).to include('life invader')
     end
   end
 end
