@@ -4,7 +4,7 @@
   <% @links.each do |link| %>
     <li>
       <a href="<%= link.url %>"> <%= link.title %> </a>
-      Tag: <%= link.tags %> 
+      Tag: <%= link.tags.first %> 
     </li>
   <% end %>
 </ul>
