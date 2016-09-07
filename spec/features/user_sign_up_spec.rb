@@ -17,7 +17,7 @@ feature 'user sign up' do
       fill_in 'email', with: 'santa@northpole.com'
       click_button 'Sign Up!'
       user = User.first
-      expect(user.name).to eq 'Santa'
+      expect(user.username).to eq 'Santa'
       expect(user.email).to eq 'santa@northpole.com'
   end
 end
