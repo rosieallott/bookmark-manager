@@ -5,6 +5,11 @@ ENV['RACK_ENV'] ||= 'development'
 
 class BookmarkManager < Sinatra::Base
 
+  post '/welcome' do
+    @user = User.create(username: params[:username], email: params[:email], password: params[:password])
+    erb :home
+  end
+
   get '/links' do
     @links = Link.all
     erb :'links/index'
@@ -32,7 +37,6 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/sign-up' do
-    user = User.create(username: params[:username], email: params[:email], password: params[:password])
     erb :signup
   end
 
