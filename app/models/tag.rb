@@ -7,4 +7,4 @@ class Tag
 
   has n, :links, through: Resource
 
-end
+end 
