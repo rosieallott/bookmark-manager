@@ -20,7 +20,7 @@ class BookmarkManager < Sinatra::Base
       array.each do |t|
         tag = Tag.first_or_create(name: t)
         link.tags << tag
-      end 
+      end
     link.save
     redirect '/links'
   end
@@ -29,6 +29,10 @@ class BookmarkManager < Sinatra::Base
     tag = Tag.first(name: params[:name])
     @links = tag ? tag.links : []
     erb :'links/index'
+  end
+
+  get '/sign-up' do
+    erb :signup
   end
 
 
