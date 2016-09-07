@@ -4,7 +4,7 @@
   <% @links.each do |link| %>
     <li>
       <a href="<%= link.url %>"> <%= link.title %> </a>
-      Tag: <%= link.tags.map(&:name).join %>
+      Tags: <%= link.tags.map(&:name).join(" & ") %>
     </li>
   <% end %>
 </ul>
