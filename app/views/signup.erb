@@ -1,7 +1,11 @@
 <form action='/welcome' method='POST'>
-  <input type='text' name='username' placeholder='Username'/>
-  <input type='text' name='email' placeholder='Email Address'/>
+  <input type='text' name='username' <% if flash[:warning] %> value = <%= session[:username] %> <% end %> placeholder='Username'/>
+  <input type='text' name='email' <% if flash[:warning] %> value = <%= session[:email] %> <% end %> placeholder='Email Address'/>
   <input type='password' name='password' placeholder='Password'/>
   <input type='password' name='password_confirmation' placeholder='Confirm Password'/>
   <input type='submit' value='Sign Up!'/>
 </form>
+
+<% if flash[:warning] %>
+  <%= flash[:warning] %>
+<% end %>
