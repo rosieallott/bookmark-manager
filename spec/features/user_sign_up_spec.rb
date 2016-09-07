@@ -12,7 +12,14 @@ feature 'user sign up' do
 
   scenario 'user is welcomed once signed up' do
     user_signup
-    expect{click_button 'Sign Up'}.to change{User.count}.by(1)
+    expect{click_button 'Sign Up!'}.to change{User.count}.by(1)
     expect(page).to have_content('Welcome Santa!')
+  end
+
+  scenario 'validates user password' do
+    user_signup
+    fill_in 'password', with: 'hello'
+    fill_in 'password_confirmation', with: 'he11o'
+    expect{click_button 'Sign Up!'}.not_to change{User.count}
   end
 end
