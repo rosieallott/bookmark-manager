@@ -18,4 +18,12 @@ feature 'User sign up' do
     expect(find_field('email').value).to eq 'testuser1'
   end
 
+  scenario 'users cannot sign up with empty email address' do
+    visit '/users/new'
+    fill_in :email, with: ''
+    fill_in :password, with: 'my_secret_password'
+    fill_in :password_confirmation, with: 'my_secret_password'
+    expect { click_button 'Sign up' }.to change(User, :count).by 0
+  end
+
 end

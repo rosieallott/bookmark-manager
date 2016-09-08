@@ -3,7 +3,7 @@
 <form action='/users' method='POST'>
   <label for='email'>
     Email:
-    <input type='text' name='email'/ value='<%=@current_email%>'>
+    <input type='email' name='email'/ value='<%=@current_email%>' required>
   </label>
   <label for='password'>
     Password:
@@ -11,7 +11,7 @@
   </label>
   <label for='password_confirmation'>
     Password confirmation:
-    <input type="password" name="password_confirmation">
+    <input type="password" name="password_confirmation" >
   </label>
   <input type='submit' value='Sign up'>
 </form>
