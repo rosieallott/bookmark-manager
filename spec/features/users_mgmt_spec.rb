@@ -13,6 +13,8 @@ feature 'User sign up' do
     sign_up
     fill_in :password_confirmation, with: 'my_secret_password2'
     expect { click_button 'Sign up' }.to change(User, :count).by 0
+    expect(current_path).to eq '/users/new'
+    expect(page).to have_content 'Password and confirmation password do not match'
   end
 
 end

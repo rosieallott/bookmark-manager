@@ -1,10 +1,12 @@
 require 'sinatra/base'
 require_relative 'data_mapper_setup'
+require 'sinatra/flash'
 
 class BookMark < Sinatra::Base
 
   enable :sessions
   set :session_secret, 'super secret'
+  register Sinatra::Flash
 
   get '/' do
     redirect '/links'
@@ -37,14 +39,19 @@ class BookMark < Sinatra::Base
   end
 
   get '/users/new' do
+    @error_msg = flash[:password_mismatch]
     erb :'users/new'
   end
 
   post '/users' do
-
     user = User.create(email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
     session[:user_id] = user.id
-    redirect to('/links')
+    if params[:password] == params[:password_confirmation]
+      redirect '/links'
+    else
+      flash[:password_mismatch] = 'Password and confirmation password do not match'
+      redirect '/users/new'
+    end
   end
 
   helpers do
