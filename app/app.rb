@@ -39,7 +39,7 @@ class BookMark < Sinatra::Base
   end
 
   get '/users/new' do
-    @error_msg = flash[:password_mismatch]
+    @error_msg = flash[:notice]
     @current_email = session[:user_email]
     erb :'users/new'
   end
@@ -48,10 +48,10 @@ class BookMark < Sinatra::Base
     user = User.create(email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
     session[:user_id] = user.id
     session[:user_email] = params[:email]
-    if params[:password] == params[:password_confirmation]
+    if user.save
       redirect '/links'
     else
-      flash[:password_mismatch] = 'Password and confirmation password do not match'
+      flash[:notice] = user.errors.full_messages.join(", ")
       redirect '/users/new'
     end
   end

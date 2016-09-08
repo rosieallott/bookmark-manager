@@ -14,24 +14,28 @@ feature 'User sign up' do
     fill_in :password_confirmation, with: 'my_secret_password2'
     expect { click_button 'Sign up' }.to change(User, :count).by 0
     expect(current_path).to eq '/users/new'
-    expect(page).to have_content 'Password and confirmation password do not match'
+    expect(page).to have_content 'Password does not match the confirmation'
     expect(find_field('email').value).to eq 'testuser1@john.com'
   end
 
   scenario 'users cannot sign up with empty email address' do
-    visit '/users/new'
+    one_valid_passwords
     fill_in :email, with: ''
-    fill_in :password, with: 'my_secret_password'
-    fill_in :password_confirmation, with: 'my_secret_password'
     expect { click_button 'Sign up' }.to change(User, :count).by 0
   end
 
-  scenario 'users cannot sign up with empty email address' do
-    visit '/users/new'
+  scenario 'users cannot sign up with invalid email address' do
+    one_valid_passwords
     fill_in :email, with: 'abc'
-    fill_in :password, with: 'my_secret_password'
-    fill_in :password_confirmation, with: 'my_secret_password'
     expect { click_button 'Sign up' }.to change(User, :count).by 0
+  end
+
+  scenario 'users cannot sign up twice' do
+    one_valid_user
+    click_button 'Sign up'
+    one_valid_user
+    expect { click_button 'Sign up' }.to change(User, :count).by 0
+    expect(page).to have_content 'Email is already taken'
   end
 
 end
