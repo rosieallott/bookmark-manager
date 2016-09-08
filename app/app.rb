@@ -40,12 +40,14 @@ class BookMark < Sinatra::Base
 
   get '/users/new' do
     @error_msg = flash[:password_mismatch]
+    @current_email = session[:user_email]
     erb :'users/new'
   end
 
   post '/users' do
     user = User.create(email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
     session[:user_id] = user.id
+    session[:user_email] = params[:email]
     if params[:password] == params[:password_confirmation]
       redirect '/links'
     else

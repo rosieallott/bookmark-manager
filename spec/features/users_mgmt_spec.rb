@@ -15,6 +15,7 @@ feature 'User sign up' do
     expect { click_button 'Sign up' }.to change(User, :count).by 0
     expect(current_path).to eq '/users/new'
     expect(page).to have_content 'Password and confirmation password do not match'
+    expect(find_field('email').value).to eq 'testuser1'
   end
 
 end
