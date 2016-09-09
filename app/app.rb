@@ -6,6 +6,7 @@ class BookMark < Sinatra::Base
 
   enable :sessions
   set :session_secret, 'super secret'
+  set :method_override, true
   register Sinatra::Flash
 
   get '/' do
@@ -66,9 +67,15 @@ class BookMark < Sinatra::Base
       session[:user_id] = user.id
       redirect '/links'
     else
-      flash.now[:error] = "Username or password is not correct"
+      flash.now[:notice] = "Username or password is not correct"
       erb :'sessions/new'
     end
+  end
+
+  delete '/sessions/sign_out' do
+    session[:user_id] = nil
+    flash[:notice] = 'Goodbye!'
+    redirect '/links'
   end
 
   helpers do
