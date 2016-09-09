@@ -21,29 +21,4 @@ class BookMark < Sinatra::Base
     redirect '/links'
   end
 
-  get '/sessions/reset' do
-    erb :'sessions/reset'
-  end
-
-  post '/sessions/reset' do
-    user = User.first(email: params[:email])
-    if user
-      #generate token
-    else
-      flash[:notice] = 'Not a known user'
-    end 
-    redirect '/sessions/password_reset'
-  end
-
-  get '/sessions/password_reset' do
-    #check token = token and time < time(0)+1hr
-    #allow to enter new password
-    erb :'sessions/password_reset'
-  end
-
-  post '/sessions/password_reset' do
-    #store new password
-    redirect '/links'
-  end
-
 end

@@ -19,7 +19,14 @@ describe User do
     it 'authentication fails because of wrong email' do
       expect(User.authenticate("testuser1@rosie.com", "my_secret_password")).to eq false
     end
+  end
 
+  context '#generate_token' do
+
+    it 'generates token and stores it in db' do
+      user.generate_token
+      expect(user.password_token).not_to be_nil
+    end
   end
 
 end
