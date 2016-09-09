@@ -1,4 +1,4 @@
-module Helpers
+module SessionHelpers
 
   def sign_up(email:, password:, password_confirmation:)
     visit '/users/new'
