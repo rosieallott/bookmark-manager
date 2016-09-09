@@ -14,3 +14,5 @@ group :test do
   gem 'capybara'
   gem 'rspec'
 end
+
+gem 'sinatra-partial', '1.0.0'
