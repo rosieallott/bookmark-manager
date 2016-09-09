@@ -37,5 +37,36 @@ feature 'User sign up' do
     expect { click_button 'Sign up' }.to change(User, :count).by 0
     expect(page).to have_content 'Email is already taken'
   end
+end
+
+feature "User sign in" do
+
+  scenario "user can sign in with proper credintials" do
+    sign_up
+    fill_in :password_confirmation, with: 'my_secret_password'
+    click_button 'Sign up'
+    another_sign_up
+    fill_in :password_confirmation, with: 'my_secret_password'
+    click_button 'Sign up'
+    visit '/sessions/new'
+    fill_in(:email, with: 'testuser1@john.com')
+    fill_in(:password, with: 'my_secret_password')
+    click_button 'Sign in'
+
+    expect(page).to have_content("Welcome, testuser1@john.com")
+  end
+
+  scenario "user cannot sign in with wrong email and/or password" do
+    sign_up
+    fill_in :password_confirmation, with: 'my_secret_password'
+    click_button 'Sign up'
+    visit '/sessions/new'
+    fill_in(:email, with: 'testuser1@john.com')
+    fill_in(:password, with: 'other_password')
+    click_button 'Sign in'
+
+    expect(page).to have_content("Username or password is not correct")
+
+  end
 
 end

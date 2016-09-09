@@ -5,6 +5,13 @@ def sign_up
   fill_in :password, with: 'my_secret_password'
 end
 
+def another_sign_up
+  visit '/users/new'
+  expect(page.status_code).to eq(200)
+  fill_in :email, with: 'testuser2@john.com'
+  fill_in :password, with: 'my_secret_password'
+end
+
 def one_valid_passwords
   visit '/users/new'
   fill_in :password, with: 'my_secret_password'
