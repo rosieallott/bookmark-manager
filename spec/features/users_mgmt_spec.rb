@@ -5,7 +5,7 @@ feature 'User sign up' do
     sign_up(email: 'testuser1@john.com', password: 'my_secret_password', password_confirmation: 'my_secret_password')
     expect(page.status_code).to eq(200)
     expect(User.all.size).to eq 1
-    expect(page).to have_content('Welcome, testuser1')
+    expect(page).to have_content('Welcome, testuser1@john.com')
     expect(User.first.email).to eq('testuser1@john.com')
   end
 
@@ -63,5 +63,27 @@ feature 'User sign out' do
 
     expect(page).to have_content 'Goodbye!'
     expect(current_path).to eq '/links'
+  end
+end
+
+feature 'password recovery' do
+
+  scenario 'valid user can request password reset token' do
+    sign_up(email: 'testuser1@john.com', password: 'my_secret_password', password_confirmation: 'my_secret_password')
+    visit '/sessions/new'
+    click_button 'Forgot my password'
+    fill_in :email, with: 'testuser1@john.com'
+    expect(current_path).to eq '/sessions/reset'
+    fill_in :password, with: 'my_new_secret_password'
+    fill_in :password_confirmation, with: 'my_new_secret_password'
+    expect(current_path).to eq '/links'
+    expect(page).to have_content 'Welcome, testuser1@john.com'
+  end
+
+  scenario 'invalid user receives error msg when trying to reset password' do
+    visit '/sessions/new'
+    click_button 'Forgot my password'
+    fill_in :email, with: 'testuser1@john.com'
+    expect(page).to have_content 'Not a known user'
   end
 end
