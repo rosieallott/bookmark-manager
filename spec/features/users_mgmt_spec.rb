@@ -76,7 +76,9 @@ feature 'password recovery' do
     fill_in :email, with: 'testuser1@john.com'
     click_button "submit"
     expect(page).to have_content("Please check your inbox")
-    visit '/users/password_reset'
+    user = User.first
+    visit("/users/password_reset?token=#{user.password_token}")
+    expect(page).to have_content("Please enter your new password")
     fill_in :password, with: 'new_password'
     fill_in :password_confirmation, with: 'new_password'
     # expect{click_button "Reset password"}.to change{User.first.password}

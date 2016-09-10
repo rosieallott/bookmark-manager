@@ -32,8 +32,7 @@ class BookMark < Sinatra::Base
   end
 
   get '/users/password_reset' do
-    #check token = token and time < time(0)+1hr
-    #allow to enter new password
+    @user = User.find_by_valid_token(params[:token])
     erb :'users/password_reset'
   end
 

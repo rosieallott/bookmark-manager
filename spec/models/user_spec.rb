@@ -31,6 +31,16 @@ describe User do
         user.generate_token
         expect(user.password_token_time).to eq Time.now
       end
-    end 
+    end
+    it 'can find a user with a valid token' do
+       user.generate_token
+       expect(User.find_by_valid_token(user.password_token)).to eq user
+    end
+    it 'can\'t find a user with a token over 1 hour in the future' do
+      user.generate_token
+      Timecop.travel(60 * 60 + 1) do
+        expect(User.find_by_valid_token(user.password_token)).to eq nil
+      end
+    end
   end
 end
