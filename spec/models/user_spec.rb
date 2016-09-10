@@ -22,11 +22,15 @@ describe User do
   end
 
   context '#generate_token' do
-
     it 'generates token and stores it in db' do
       user.generate_token
       expect(user.password_token).not_to be_nil
     end
+    it "saves a password recovery token time when we generate a token using" do
+      Timecop.freeze do
+        user.generate_token
+        expect(user.password_token_time).to eq Time.now
+      end
+    end 
   end
-
 end

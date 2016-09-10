@@ -1,5 +1,6 @@
 require_relative '../data_mapper_setup'
 require 'bcrypt'
+require 'timecop'
 require 'securerandom'
 
 class User
@@ -9,6 +10,7 @@ class User
   property :email,  String, :required => true, :unique => true
   property :password_digest, Text
   property :password_token, String, length: 60
+  property :password_token_time, Time
 
   attr_accessor :password_confirmation
   attr_reader :password
@@ -32,6 +34,7 @@ class User
 
   def generate_token
     self.password_token = SecureRandom.hex
+    self.password_token_time = Time.now
     self.save
   end
 

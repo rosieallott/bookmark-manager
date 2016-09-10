@@ -26,9 +26,7 @@ class BookMark < Sinatra::Base
     user = User.first(email: params[:email])
     if user
       user.generate_token
-      #generate token
     end
-    # erb :'users/acknowledgement'
     flash[:notice] = "Please check your inbox"
     redirect '/links'
   end
